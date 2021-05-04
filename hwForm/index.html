@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form class="form" action="#">
+        <label for="name">name</label>
+        <input id="name" name="name" type="text"  placeholder="ivan" maxlength="30">
+        <span class="error-name"></span>
+
+        <label for="surname">last name</label>
+        <input id="surname" name="surname" type="text"  placeholder="ivanow" maxlength="30">
+        <span class="error-surname"></span>
+
+        <label for="birthday"> Your birthday</label>
+        <input id="birthday" name="birthday" type="date" required>
+        <span class="error-birthday"></span>
+
+        <label for="age">age</label>
+        <input id="age" name="age" type="number"  placeholder="18" max="120" min="0" disabled>
+        <span class="error-age"></span>
+
+        <label for="mobile-phone">phome</label>
+        <input id="mobile-phone" name="mobile-phone" type="tel"  placeholder="99 999 99 99" maxlength="30">
+        <span class="error-mobile-phone"></span>
+
+        <label for="email">email</label>
+        <input id="email" name="email" type="email" placeholder="ivanow@mail.ru" maxlength="30">
+        <span class="error-email"></span>
+
+        <label for="aducation">Your aducation</label>
+        <select class="select" name="aducation" id="aducation">
+            <option value="hight">hight</option>
+            <option value="middle">middle</option>
+            <option value="do not know">do not know</option>
+        </select>
+        <span class="error-aducation"></span>
+
+        <label for="holiday">holiday</label>
+        <input id="holiday" name="holiday" type="number" placeholder="25"  min="0" max="30">
+        <span class="error-holiday"></span>
+
+        <label class="policyLabel" for="privacy">
+            <input id="privacy" type="checkbox">
+            <p>you agree to the <a href="#">privacy policy.</a></p>
+        </label>
+
+        <button class="button" type="submit" disabled> Send </button>
+    </form>
+    
+    <!-- <script src="classForm.js"></script> -->
+
+    <script src="functionFrom.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

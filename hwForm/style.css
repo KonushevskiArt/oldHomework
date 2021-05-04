@@ -1,0 +1,32 @@
+
+input, select{
+    display: block;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+button {
+    display: block;
+    margin: 5px;    
+    padding: 10px;
+}
+.error {
+    border-color: red;
+}
+.form span {
+    display: block;
+    color: red;
+    margin-bottom: 8px;
+}
+.form label {
+    display: inline-block;
+}
+.form .policyLabel {
+    display: flex;
+    align-items: center;
+}
+.policyLabel #privacy {
+    display: block;
+}
