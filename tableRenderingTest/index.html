@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p class="helper">Array length must be greater than big chunk length and divisible by it witяhout a remainder, also big chunk length must be greater than smal chunk length and divisible by it without remainder.</p>
+    <p>
+        <input id="arr-length" type="text" name="arr-length" placeholder="100">
+        <label for="arr-length">array length</label>
+    </p>
+    <p>
+        <input id="big-chunk" type="text" name="big-chunk" placeholder="10">
+        <label for="big-chunk">big chunk length</label>
+    </p>
+    <p>
+        <input id="smal-chunk" type="text" name="smal-chunk" placeholder="5">
+        <label for="smal-chunk">smal chunk length</label>
+    </p>
+    <div class="wrap">
+        <button class="btn">render table</button>
+        <div class="end-time">
+            <input id="end-time" type="text" name="end-time" disabled>
+            <label for="end-time">end time</label>
+        </div>
+
+    </div>
+    <table class="table">
+        <thead></thead>
+        <tbody class="table-tbody"></tbody>
+    </table>
+    
+    <script src="script.js"></script>
+</body>
+</html>
