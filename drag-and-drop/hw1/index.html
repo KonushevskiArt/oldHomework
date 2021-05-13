@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style='border: solid red 1px;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;'
+        ondrop="divDrop(event)"
+        ondragover="divDragOver(event)"
+        ondragenter="divDragEnter(event)"
+        ondragleave="divDragLeave(event)">
+    </div>
+
+    <br />
+
+    <div style='
+        border: solid blue 1px;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;'
+        ondrop="divDrop(event)"
+        ondragover="divDragOver(event)"
+        ondragenter="divDragEnter(event)"
+        ondragleave="divDragLeave(event)">
+    </div>
+
+    <br/><br />
+
+    <img height="40" id=BALL src="ball.svg">
+
+    <script>
+
+    "use strict";
+
+    function divDragEnter(EO) {
+        // мяч вошёл в область div
+        EO=EO||window.event;
+        EO.preventDefault();
+        EO.currentTarget.style.borderStyle="dashed";
+    }
+
+    function divDragLeave(EO) {
+        // мяч вышёл из области div
+        EO=EO||window.event;
+        EO.preventDefault();
+        EO.currentTarget.style.borderStyle="solid";
+    }
+
+    function divDragOver(EO) {
+        EO=EO||window.event;
+        // по-умолчанию ронять элементы в div запрещено, отменяем:
+        EO.preventDefault();
+    }
+
+    function divDrop(EO) {
+        // мячик уронен
+        EO=EO||window.event;
+        EO.preventDefault();
+        var dragElem=document.getElementById('BALL');
+        EO.currentTarget.appendChild(dragElem);
+    }
+
+    </script>
+
+</body>
+</html>

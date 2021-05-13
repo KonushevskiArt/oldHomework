@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id=IField style='position: relative; border: solid red 1px;
+    width: 320px; height: 350px'>
+</div>
+
+    <script>
+
+        "use strict";
+
+        var field=document.getElementById('IField');
+        field.addEventListener('click',clickAny,false);
+
+        function moveElemInContainer(container, elem) {
+            const containerSizes = container.getBoundingClientRect();
+            elem.addEventListener('mousedown', function(evt) {
+                evt.preventDefault();
+
+                function checkContainerBordersByX(value) {
+                    const elemPosX = elem.getBoundingClientRect().x;
+
+                    const offsetFarSide = -1;
+                    const offsetNearSide = 1;
+
+                    if (elemPosX >= containerSizes.right - elem.width) {
+                        value = elemPosX - (containerSizes.right + offsetFarSide) + elem.width;
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else if (elemPosX <= containerSizes.left) {
+                        value = -(containerSizes.left + offsetNearSide - elemPosX);
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else {
+                        return value;
+                    }
+                }
+
+                function checkContainerBordersByY(value) {
+                    const elemPosY = elem.getBoundingClientRect().y;
+
+                    const offsetFarSide = 1;
+                    const offsetNearSide = 1;
+
+                    if (elemPosY >= containerSizes.bottom - elem.height) {
+                        value = elemPosY - containerSizes.bottom + offsetFarSide + elem.height;
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else if (elemPosY <= containerSizes.top) {
+                        value = -(containerSizes.top + offsetNearSide - elemPosY);
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else {
+                        return value;
+                    }
+                }
+
+                let startCords = {
+                    x: evt.clientX,
+                    y: evt.clientY
+                }
+                
+                const onMouseMove = function(evt) {
+                    // evt.preventDefault();
+                    let shift = {
+                        x: startCords.x - evt.clientX,
+                        y: startCords.y - evt.clientY,
+                    };
+
+                    startCords = {
+                        x: evt.clientX,
+                        y: evt.clientY
+                    }
+    
+                    const shiftX = checkContainerBordersByX(shift.x);
+                    const shiftY = checkContainerBordersByY(shift.y);
+                    
+                    elem.style.top = (elem.offsetTop - shiftY) + 'px';
+                    elem.style.left = (elem.offsetLeft - shiftX) + 'px';
+                }
+            
+                const onMouseUp = function(evt) {
+                    // evt.preventDefault();
+                    container.removeEventListener('mousemove', onMouseMove);
+                    container.removeEventListener('mouseup', onMouseUp);
+                }
+                
+                container.addEventListener('mousemove', onMouseMove);
+                container.addEventListener('mouseup', onMouseUp);
+                
+            });
+        }
+        
+        for ( let b=0; b<5; b++ ) {
+            const ball=document.createElement('img');
+            ball.src='ball.svg';
+            ball.width = 20;
+            ball.height = 20;
+            ball.style.position='absolute';
+            ball.style.left=0;
+            ball.style.top=50*b+"px";
+            field.appendChild(ball);
+            moveElemInContainer(field, ball);
+            
+        }
+
+        for ( var b=0; b<5; b++ ) {
+            var button=document.createElement('input');
+            button.type='button';
+            button.value='кнопка '+b;
+            button.style.position='absolute';
+            button.style.left="150px";
+            button.style.top=50*b+"px";
+            field.appendChild(button);
+        }
+
+        for ( var s=0; s<5; s++ ) {
+            var span=document.createElement('span');
+            span.style.position='absolute';
+            span.style.left="250px";
+            span.style.top=50*s+"px";
+            span.innerHTML='текст '+s;
+            span.setAttribute('data-zzz',s);
+            field.appendChild(span);
+        }
+
+        function clickAny(EO) {
+            EO=EO||window.event;
+            var clickedElem=EO.target||EO.srcElement;
+
+            if ( clickedElem.tagName=='IMG' ) {
+                // кликнут IMG, т.е. мяч, уберём его
+                clickedElem.parentNode.removeChild(clickedElem); // удаляем его
+            }
+            else if ( clickedElem.tagName=='INPUT' ) {
+                // кликнута кнопка, покажем сообщение
+                alert('нажата кнопка с подписью '+clickedElem.value);
+            }
+            else if ( clickedElem.tagName=='SPAN' ) {
+                // кликнут текст, покажем сообщение
+                alert('кликнут текст с номером '+clickedElem.getAttribute('data-zzz'));
+            }
+
+        }
+
+    </script>
+</body>
+</html>

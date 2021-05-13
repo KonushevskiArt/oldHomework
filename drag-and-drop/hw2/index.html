@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <input type=text id=BC value=10>
+        <input type=button value='Добавить' onclick='add()'>
+        <div id=IField style='position: relative;
+        border: solid red 1px; width: 400px; height: 400px'>
+        </div>
+
+        <script>
+        "use strict";
+
+        function moveElemInContainer(container, elem) {
+            const containerSizes = container.getBoundingClientRect();
+            elem.addEventListener('mousedown', function(evt) {
+                evt.preventDefault();
+
+                function checkContainerBordersByX(value) {
+                    const elemPosX = elem.getBoundingClientRect().x;
+
+                    const offsetFarSide = -1;
+                    const offsetNearSide = 1;
+
+                    if (elemPosX >= containerSizes.right - elem.width) {
+                        value = elemPosX - (containerSizes.right + offsetFarSide) + elem.width;
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else if (elemPosX <= containerSizes.left) {
+                        value = -(containerSizes.left + offsetNearSide - elemPosX);
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else {
+                        return value;
+                    }
+                }
+
+                function checkContainerBordersByY(value) {
+                    const elemPosY = elem.getBoundingClientRect().y;
+
+                    const offsetFarSide = 1;
+                    const offsetNearSide = 1;
+
+                    if (elemPosY >= containerSizes.bottom - elem.height) {
+                        value = elemPosY - containerSizes.bottom + offsetFarSide + elem.height;
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else if (elemPosY <= containerSizes.top) {
+                        value = -(containerSizes.top + offsetNearSide - elemPosY);
+                        // container.removeEventListener('mousemove', onMouseMove);
+                        return value;
+                    } else {
+                        return value;
+                    }
+                }
+
+                let startCords = {
+                    x: evt.clientX,
+                    y: evt.clientY
+                }
+                
+                const onMouseMove = function(evt) {
+                    // evt.preventDefault();
+                    let shift = {
+                        x: startCords.x - evt.clientX,
+                        y: startCords.y - evt.clientY,
+                    };
+
+                    startCords = {
+                        x: evt.clientX,
+                        y: evt.clientY
+                    }
+    
+                    const shiftX = checkContainerBordersByX(shift.x);
+                    const shiftY = checkContainerBordersByY(shift.y);
+                    
+                    elem.style.top = (elem.offsetTop - shiftY) + 'px';
+                    elem.style.left = (elem.offsetLeft - shiftX) + 'px';
+                }
+            
+                const onMouseUp = function(evt) {
+                    // evt.preventDefault();
+                    container.removeEventListener('mousemove', onMouseMove);
+                    container.removeEventListener('mouseup', onMouseUp);
+                }
+                
+                container.addEventListener('mousemove', onMouseMove);
+                container.addEventListener('mouseup', onMouseUp);
+            });
+        }
+
+        function add() {
+            const field=document.getElementById('IField');
+            const ballsCount=document.getElementById('BC').value;
+
+            for (let b = 0; b < ballsCount; b++ ) {
+                const ball = document.createElement('img');
+                ball.src='ball.svg';
+                ball.height = '40';
+                ball.style.position='absolute';
+                // ball.draggable = true;
+                ball.style.left = Math.floor(Math.random()*300)+"px";
+                ball.style.top = Math.floor(Math.random()*300)+"px";
+
+                field.appendChild(ball);
+                moveElemInContainer(field, ball);
+            }
+        }
+        </script>
+    </body>
+</html>
